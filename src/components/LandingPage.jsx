@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowRight, User, Sparkles, ChevronDown } from "lucide-react";
+import { ArrowRight, User, Sparkles, ChevronDown, Menu } from "lucide-react";
 import { Link } from "react-router-dom";
 import Globe from "../assets/Globe.png";
 import nPaxImage from "../assets/npax-logo.png";
@@ -11,7 +11,7 @@ import BusinessImage5 from "../assets/LP6.png";
 import Chatbot from "./Chatbot.jsx";
 
 export default function LandingPage() {
-  return (
+  return ( 
     <>
       {/* Hero Section with Globe Background */}
       <div
@@ -38,7 +38,7 @@ export default function LandingPage() {
           </div>
 
           {/* Navigation Links */}
-          <div className="flex items-center gap-8 text-gray-500">
+          <div className="lg:flex hidden items-center gap-8 text-gray-500">
             <Link
               to="/AboutUs"
               className="text-gray-600 hover:text-blue-300 transition"
@@ -224,6 +224,47 @@ export default function LandingPage() {
             <button className="text-white border border-white px-4 py-2 hover:bg-white hover:text-slate-800 transition-all uppercase text-sm tracking-wide">
               Language
             </button>
+          </div>
+
+          {/* Responsive Nav Link */}
+          <div className="lg:hidden flex items-center">
+            <div className="relative group">
+              <button className="hover:text-blue-300 transition flex items-center gap-1">
+                <Menu className="w-6 h-6 text-white" />
+              </button>
+
+              <div className="absolute right-0 mt-2 rounded-md bg-slate-800/50 backdrop-blur-md
+                shadow-xl overflow-hidden max-h-0 opacity-0 invisible 
+                -translate-y-2 w-[95vh] text-center
+                group-hover:max-h-[100vh] group-hover:opacity-100 group-hover:visible group-hover:translate-y-0
+                transition-all duration-500 ease-out">
+
+                <div className="p-5 flex flex-col gap-4">
+                  <Link to="/AboutUs" className="text-gray-100 hover:text-blue-400 transition">
+                    ABOUT US
+                  </Link>
+                  <a href="#contact" className="text-gray-100 hover:text-blue-400 transition">
+                    SOFTWARE PRODUCTS AND SERVICES
+                  </a>
+                  <a href="#contact" className="text-gray-100 hover:text-blue-400 transition">
+                    INSIGHTS AND BLOGS
+                  </a>
+                  <Link to="/Career" className="text-gray-100 hover:text-blue-400 transition">
+                    CAREERS
+                  </Link>
+                  <a href="#contact" className="text-gray-100 hover:text-blue-400 transition">
+                    CONTACT US
+                  </a>
+                  <button
+                    className="text-white border border-white px-4 py-2 hover:bg-white hover:text-slate-800 transition-all uppercase text-sm tracking-wide"
+                  >
+                    Language
+                  </button>
+                  
+                </div>
+
+              </div>
+            </div>
           </div>
         </nav>
 

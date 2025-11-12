@@ -17,16 +17,9 @@ export default function Home() {
             "uploaded": "2025-11-11T05:24:58.175Z"
     }
     const data = [
-        { id: 1, name: "Data Item 1"},
-        { id: 2, name: "Data Item 2"},
-        { id: 3, name: "Data Item 3"},
-        { id: 3, name: "Data Item 3"},
-        { id: 3, name: "Data Item 3"},
-        { id: 3, name: "Data Item 3"},
-        { id: 3, name: "Data Item 3"},
-        { id: 3, name: "Data Item 3"},
-        { id: 3, name: "Data Item 3"},
-        { id: 3, name: "Data Item 3"},
+        { id: 1, name: "About.docx"},
+        { id: 2, name: "Services.docx"},
+        { id: 3, name: "Careers.docx"},
     ];  
 
     useEffect(() => {

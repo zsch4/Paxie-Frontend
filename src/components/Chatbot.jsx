@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { X, Send, MessageCircle, Minus } from 'lucide-react';
+import { X, Send, MessageCircle, Minus, ArrowBigDown, ChevronDown, ChevronUp } from 'lucide-react';
 import BotIcon from './BotIcon';
 import PaxieIcon from '../assets/paxie.png';
 
@@ -145,13 +145,21 @@ export default function Chatbot() {
       <button
         ref={chatButtonRef} // <-- attach ref here
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-8 right-8 p-1 bg-gray-700 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform duration-300 border-2 border-blue-600 ${
+        className={`fixed bottom-8 right-8 p-1  bg-gray-700 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform duration-300 border-2 border-blue-600 ${
           isOpen ? 'scale-110' : ''
         }`}
       >
         {/* <img src={PaxieIcon} alt="Chatbot" className="w-12 h-12 rounded-full" /> */}
-        <BotIcon w={45} h={45} />
-
+        <div
+          className={`transition-all duration-500 ease-in-out transform ${
+            isOpen ? 'rotate-180 opacity-100 scale-100' : 'rotate-0 opacity-90 scale-95'}`}
+          >
+          {!isOpen ? (
+            <BotIcon w={45} h={45} />
+          ) : (
+            <ChevronUp className="text-white h-11 w-11" />
+          )}
+        </div>
       </button>
 
       {/* Chat Window */}
@@ -159,7 +167,7 @@ export default function Chatbot() {
         <div 
           ref={chatWindowRef} 
           className="fixed bottom-24 right-8 w-[320px] h-[400px] bg-white rounded-3xl shadow-2xl flex flex-col z-50 overflow-hidden
-            "
+               animate-chatPopIn"
         >
           {/* Header */}
           <div className="bg-blue-500 p-2 flex items-center justify-between">
