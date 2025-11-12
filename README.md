@@ -29,3 +29,11 @@ PAXIE is a real-time AI chat assistant built for N-Pax website, featuring a resp
 1. Clone the repo
    ```bash
    git clone https://github.com/zsch4/Paxie-Frontend.git
+
+## How to run locally
+1. Install dependencies
+   ```bash
+    npm install
+2. Start the development server
+   ```bash
+   npm run dev
