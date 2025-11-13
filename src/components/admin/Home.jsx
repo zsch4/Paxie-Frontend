@@ -47,6 +47,12 @@ export default function Home() {
         }
     }
 
+    const handleLogout = () => {
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("currentUser");
+        navigate("/admin/login");
+    }
+
     return (
         <>
         { !loading ? (
@@ -61,7 +67,7 @@ export default function Home() {
                         </div>
                     
                         <div>
-                            <a href="/admin/login" className="text-white hover:underline">Logout</a>
+                            <button onClick={handleLogout} className="text-white hover:underline">Logout</button>
                         </div>
                     </nav> 
 

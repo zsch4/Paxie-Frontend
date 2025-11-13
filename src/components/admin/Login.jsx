@@ -1,16 +1,17 @@
 import nPaxImage from "../../assets/npax-white.png";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { api } from "../../api/api";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   //Sample credentials for testing
   const credentials = {
-    email: "admin@gmail.com",
+    username: "admin@gmail.com",
     password: "admin123",
   };
 
@@ -20,22 +21,16 @@ export default function Login() {
     setError("");
 
     try {
-        if (email != credentials.email || password != credentials.password) {
-            throw new Error("Invalid credentials");
-        } else {
+      const res = await api.login({UserName: username, Password: password});
 
-            setTimeout(() => {
-                setLoading(false);
-                alert("Login successful!");
-                navigate("/admin/home");
-            }, 1000);
-        }
+      localStorage.setItem("authToken", res.data.token);
+      localStorage.setItem("currentUser", JSON.stringify(res.data.user));
+      setLoading(false);
+      navigate("/admin/home");
+
     } catch (err) {
-        setTimeout(() => {
-           setError("Login failed. Please try again.");
-            console.log("Login Failed:", err);
-            setLoading(false);
-        }, 1000);
+      setError(err.response.data + " Please try again."); 
+      setLoading(false);
     }
 
   };
@@ -53,14 +48,14 @@ export default function Login() {
 
         <form onSubmit={handleSubmit} className="space-y-3">
           <label className="block">
-            <span className="text-white/90 text-sm">Email</span>
+            <span className="text-white/90 text-sm">Username</span>
             <input
-              type="email"
+              type="text"
               required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="mt-2 block w-full rounded-lg bg-white/10 border border-white/20 px-4 py-2 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/80"
-              placeholder="you@example.com"
+              placeholder="Enter your username"
             />
           </label>
 
@@ -76,7 +71,8 @@ export default function Login() {
             />
           </label>
 
-          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+          {error && <p className="text-red-500 text-sm mt-2 font-medium
+            bg-white/80 p-1.5 px-2 rounded-b-lg">{error}</p>}
         
           <div className="py-8">
             <button 

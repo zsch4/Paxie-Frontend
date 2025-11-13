@@ -4,6 +4,7 @@ import AboutUs from './components/About Us';
 import Career from './components/Career';
 import Login from './components/admin/Login';
 import Home from './components/admin/Home';
+import ProtectedRoute from './routes/ProtectedRoutes';
 
 export default function App() {
   return (
@@ -14,7 +15,11 @@ export default function App() {
         <Route path="/career" element={<Career />} />
 
         <Route path="/admin/login" element={<Login />} />
-        <Route path="/admin/home" element={<Home />} />
+        <Route path="/admin/home" element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        } />
       </Routes>
    
   );
