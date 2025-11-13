@@ -3,6 +3,7 @@ import nPaxImage from "../../assets/npax-white.png";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BotIcon from "../BotIcon";
+import { convertFileToBytes } from "../../utils/FileConverter";
 
 export default function Home() {
     const [uploading, setUploading] = useState(false);
@@ -28,24 +29,62 @@ export default function Home() {
        }, 2000); 
     },[]);
 
+    // const handleUpload = async () => {
+    //     setUploading(true);
+    //     setError("");
+
+    //     try {
+
+    //         setTimeout(() => {      
+    //             setUploading(false);
+    //             console.log("Upload successful:", file);
+    //             alert("Upload successful!");
+    //         }, 1000);
+
+    //     } catch (err) {
+    //         setError("Upload Failed:", err);
+    //         setUploading(false);
+
+    //     }
+    // }
+
     const handleUpload = async () => {
+        if (!file) {
+            alert("Please select a file to upload.");
+            return;
+        }
+
         setUploading(true);
         setError("");
 
         try {
+            const { byteArray, base64String } = await convertFileToBytes(file);
 
-            setTimeout(() => {      
+            console.log("PDF as byte array:", byteArray);
+            console.log("PDF as Base64:", base64String);
+
+            const document = {
+                fileName: file.name,
+                documentType: 0,
+                data: base64String,
+                uploaded: new Date().toISOString(),
+            };
+
+            console.log("Prepared document object:", document);
+
+            setTimeout(() => {
                 setUploading(false);
-                console.log("Upload successful:", file);
+                console.log("Upload successful:", document);
                 alert("Upload successful!");
             }, 1000);
-
-        } catch (err) {
-            setError("Upload Failed:", err);
+        } catch (e) {
+            console.error("Upload failed:", e);
+            setError("Upload Failed");
             setUploading(false);
-
         }
-    }
+    };
+
+
 
     const handleLogout = () => {
         localStorage.removeItem("authToken");
@@ -79,6 +118,7 @@ export default function Home() {
                                     <input 
                                         onChange={(e) => setFile(e.target.files[0])}
                                         type="file" 
+                                        accept=".pdf, .docs"
                                         className="border border-white/20 rounded-full cursor-pointer text-white" 
                                     />
                                     <p className="text-white/90 mt-4">Click to upload or drag and drop</p>
@@ -89,7 +129,7 @@ export default function Home() {
                                         <p className="text-white/90">{file.name}</p>
                                     </div>}
 
-                                    <button onClick={handleUpload} className="mt-6 w-[280px] bg-white/90 hover:bg-white/50 text-[#003bad] font-semibold py-2 px-4 rounded-lg shadow-lg">
+                                    <button onClick={handleUpload} disabled={uploading} className="mt-6 w-[280px] bg-white/90 hover:bg-white/50 text-[#003bad] font-semibold py-2 px-4 rounded-lg shadow-lg">
                                         {uploading ? "Uploading..." : "Upload File"}
                                     </button>
                                 </div> 
