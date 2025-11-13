@@ -121,6 +121,48 @@ export default function Chatbot() {
       setIsTyping(false); 
     }
   };
+
+  // const handleSendMessage = async () => {
+  //   if (!inputMessage.trim()) return;
+
+  //   const userMessage = {
+  //     id: messages.length + 1,
+  //     text: inputMessage,
+  //     sender: 'user',
+  //     timestamp: new Date()
+  //   };
+
+  //   setMessages(prev => [...prev, userMessage]);
+  //   setInputMessage('');
+  //   setIsTyping(true);
+
+  //   try {
+  //     // Simulated response for demo - replace with your actual API call
+  //     await new Promise((resolve) => {
+  //       setTimeout(() => {
+  //         const botMessage = {
+  //           id: Date.now(), 
+  //           text: "Thank you for your message! I'm here to help you with your tasks and questions.",
+  //           sender: 'bot',
+  //           timestamp: new Date()
+  //         };
+  //         setMessages(prev => [...prev, botMessage]);
+  //         resolve();
+  //       }, 1000);
+  //     });
+  //   } catch (error) {
+  //     console.error('Chatbot error:', error);
+  //     const errorMessage = {
+  //       id: Date.now(),
+  //       text: "Sorry, I'm having trouble connecting right now. Please try again later.",
+  //       sender: 'bot',
+  //       timestamp: new Date()
+  //     };
+  //     setMessages(prev => [...prev, errorMessage]);
+  //   } finally {
+  //     setIsTyping(false); 
+  //   }
+  // };
   
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {

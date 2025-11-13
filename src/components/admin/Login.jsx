@@ -29,7 +29,9 @@ export default function Login() {
       navigate("/admin/home");
 
     } catch (err) {
-      setError(err.response.data + " Please try again."); 
+      const error = err.response || err;
+      console.log(err);
+      setError(error.data ? error.data: error.message + " Please try again."); 
       setLoading(false);
     }
 
@@ -71,14 +73,14 @@ export default function Login() {
             />
           </label>
 
-          {error && <p className="text-red-500 text-sm mt-2 font-medium
-            bg-white/80 p-1.5 px-2 rounded-b-lg">{error}</p>}
+          {error && <p className={`text-red-600 text-sm mt-2 font-medium
+            bg-white p-1.5 px-2 rounded-b-lg`}>{error}</p>}
         
           <div className="py-8">
             <button 
                 type="submit" 
                 disabled={loading}
-                className="w-full bg-white hover:bg-white/25 hover:text-white text-[#183398] text-md font-bold py-1.5 rounded-full transition"
+                className={`w-full ${loading ? 'bg-white/20 text-gray-500' : 'bg-white hover:bg-white/25 hover:text-white text-[#183398]'}  text-md font-bold py-1.5 rounded-full transition`}
             >
                 {loading ? "LOGGING IN..."  : "LOG IN"}
             </button>
