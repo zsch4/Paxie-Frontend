@@ -12,7 +12,7 @@ Api.interceptors.request.use((config) => {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
-});
+});     
 
 export default Api;
 
@@ -20,6 +20,7 @@ export default Api;
 export const api = {
   //AUTH API
   login: (credentials) => Api.post("/Auth/Login", credentials),
+  addDocument: (document) => Api.post("/Documents/GetDocumentPlaceholder", document),
 //   register: (newAdmin) => Api.post("/Auth/CreateAdmin", newAdmin),
 
 };

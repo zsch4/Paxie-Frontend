@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BotIcon from "../BotIcon";
 import { convertFileToBytes } from "../../utils/FileConverter";
+import { api } from "../../api/api";
 
 export default function Home() {
     const [uploading, setUploading] = useState(false);
@@ -11,12 +12,6 @@ export default function Home() {
     const [error, setError] = useState("");
     const [file, setFile] = useState(null);
     const navigate = useNavigate();
-    const document = {
-         "fileName": "string",
-            "documentType": 0,
-            "data": "string",
-            "uploaded": "2025-11-11T05:24:58.175Z"
-    }
     const data = [
         { id: 1, name: "About.docx"},
         { id: 2, name: "Services.docx"},
@@ -57,6 +52,23 @@ export default function Home() {
         setUploading(true);
         setError("");
 
+        if (!file) return;
+
+        var docType;
+
+        if (file.type === "application/pdf") {
+            docType = 0; // PDF
+        } 
+        else if (file.type === "application/msword" || file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+            docType = 1; // Word Document
+        } 
+        else if (file.type === "application/vnd.ms-excel" || file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+            docType = 2; // Excel Spreadsheet
+        } 
+        else {
+            console.log("Unsupported file type:", file.type);
+        }
+
         try {
             const { byteArray, base64String } = await convertFileToBytes(file);
 
@@ -64,26 +76,28 @@ export default function Home() {
             console.log("PDF as Base64:", base64String);
 
             const document = {
-                fileName: file.name,
-                documentType: 0,
-                data: base64String,
-                uploaded: new Date().toISOString(),
+                FileName: file.name,
+                DocumentType: docType,
+                Data: base64String,
+                Uploaded: new Date().toISOString(),
             };
 
             console.log("Prepared document object:", document);
 
+            // const res = await api.addDocument(document);
+
             setTimeout(() => {
-                setUploading(false);
-                console.log("Upload successful:", document);
-                alert("Upload successful!");
+            setUploading(false);
+            console.log("Upload successful:", document);
+            alert("Upload successful!");
             }, 1000);
+
         } catch (e) {
             console.error("Upload failed:", e);
             setError("Upload Failed");
             setUploading(false);
         }
     };
-
 
 
     const handleLogout = () => {
@@ -128,6 +142,9 @@ export default function Home() {
                                         <FileText className="mr-2 text-white/90" />
                                         <p className="text-white/90">{file.name}</p>
                                     </div>}
+                                    
+                                    {error && <p className={`text-red-600 text-sm mt-2 font-medium
+                                    bg-white p-1.5 px-2 rounded-b-lg`}>{error}</p>}
 
                                     <button onClick={handleUpload} disabled={uploading} className="mt-6 w-[280px] bg-white/90 hover:bg-white/50 text-[#003bad] font-semibold py-2 px-4 rounded-lg shadow-lg">
                                         {uploading ? "Uploading..." : "Upload File"}
