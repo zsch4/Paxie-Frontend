@@ -1,4 +1,4 @@
-export default function BotIcon({h,w}) {
+export default function BotIcon({h,w, error = false}) {
     return (
         <div className="">
           <svg width={w} height={h} viewBox="0 0 60 60" className="text-[#cfd8dc]">
@@ -15,9 +15,17 @@ export default function BotIcon({h,w}) {
             <circle cx="22" cy="32" r="4" fill="#60a5fa"/>
             <circle cx="38" cy="32" r="4" fill="#60a5fa"/>
 
-            {/* Smile */}
-            <path d="M 20,40 Q 30,46 40,40" stroke="#60a5fa" strokeWidth="3" fill="none" strokeLinecap="round"/>
+            {
+              error ? (
+                <path d="M 20,42 Q 30,36 40,42" stroke="#94a3b8" strokeWidth="3" fill="none" strokeLinecap="round"/>
+              ) : (
+                <path d="M 20,40 Q 30,46 40,40" stroke="#60a5fa" strokeWidth="3" fill="none" strokeLinecap="round"/>
+              )
+            }
+            
           </svg>
         </div>
+
+        
     )
 }

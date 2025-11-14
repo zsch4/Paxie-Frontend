@@ -20,8 +20,10 @@ export default Api;
 export const api = {
   //AUTH API
   login: (credentials) => Api.post("/Auth/Login", credentials),
-  addDocument: (document) => Api.post("/Documents/GetDocumentPlaceholder", document),
-//   register: (newAdmin) => Api.post("/Auth/CreateAdmin", newAdmin),
+  //register: (newAdmin) => Api.post("/Auth/CreateAdmin", newAdmin),
+  addDocument: (document) => Api.post("/Documents/AddDocument", document),
+  getDocuments: () => Api.get("/Documents/GetDocuments"),
+  deleteDocument: (documentId) => Api.delete(`/Documents/${documentId}`),
 
 };
 
