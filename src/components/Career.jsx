@@ -229,7 +229,7 @@ export default function Career() {
               </div>
             </div>
           </div>
-        </nav>
+        </nav> 
 
         {/* Content */}
         <div className="relative h-full flex items-center">

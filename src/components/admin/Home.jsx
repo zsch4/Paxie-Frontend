@@ -8,13 +8,13 @@ import { api } from "../../api/api";
 
 export default function Home() {
     const [uploading, setUploading] = useState(false);
-		const [deleting, setDeleting] = useState(false);
+	const [deleting, setDeleting] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-		const [networkError, setNetworkError] = useState("");
+	const [networkError, setNetworkError] = useState("");
     const [file, setFile] = useState(null);
     const navigate = useNavigate();
-		const [documents, setDocuments] = useState([]);
+	const [documents, setDocuments] = useState([]);
     const [currentId, setCurrentId] = useState(null);
 
     useEffect(() => {
